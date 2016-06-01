@@ -1,4 +1,4 @@
-# atom-warn-mixed-tabs-spaces package
+# warn-mixed-tabs-spaces package
 
 A short description of your package.
 

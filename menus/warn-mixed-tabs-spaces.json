@@ -2,8 +2,8 @@
   "context-menu": {
     "atom-text-editor": [
       {
-        "label": "Toggle atom-warn-mixed-tabs-spaces",
-        "command": "atom-warn-mixed-tabs-spaces:toggle"
+        "label": "Toggle warn-mixed-tabs-spaces",
+        "command": "warn-mixed-tabs-spaces:toggle"
       }
     ]
   },
@@ -12,11 +12,11 @@
       "label": "Packages",
       "submenu": [
         {
-          "label": "atom-warn-mixed-tabs-spaces",
+          "label": "warn-mixed-tabs-spaces",
           "submenu": [
             {
               "label": "Toggle",
-              "command": "atom-warn-mixed-tabs-spaces:toggle"
+              "command": "warn-mixed-tabs-spaces:toggle"
             }
           ]
         }

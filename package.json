@@ -1,18 +1,26 @@
 {
-  "name": "atom-warn-mixed-tabs-spaces",
-  "main": "./lib/atom-warn-mixed-tabs-spaces",
-  "version": "0.0.0",
-  "description": "A short description of your package",
-  "keywords": [
-  ],
-  "activationCommands": {
-    "atom-workspace": "atom-warn-mixed-tabs-spaces:toggle"
-  },
-  "repository": "https://github.com/atom/atom-warn-mixed-tabs-spaces",
-  "license": "MIT",
-  "engines": {
-    "atom": ">=1.0.0 <2.0.0"
-  },
-  "dependencies": {
-  }
+    "name": "warn-mixed-tabs-spaces",
+    "main": "./lib/warn-mixed-tabs-spaces",
+    "version": "0.0.0",
+    "description": "Warns if there are mixed spaces and tabs used for indentation",
+    "keywords": [
+        "indentation",
+        "tabs",
+        "spaces",
+        "warning",
+        "mixed"
+    ],
+    "repository": "https://github.com/llloret/warn-mixed-tabs-spaces.git",
+    "license": "MIT",
+    "engines": {
+        "atom": ">=1.0.0 <2.0.0"
+    },
+    "consumedServices": {
+        "status-bar": {
+            "versions": {
+                "^1.0.0": "consumeStatusBar"
+            }
+        }
+    },
+    "dependencies": {}
 }
