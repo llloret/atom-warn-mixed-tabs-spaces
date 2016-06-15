@@ -4,5 +4,16 @@
 // for a full listing of what's available.
 @import "ui-variables";
 
+atom-text-editor::shadow .line-number {
+  &.line-space {
+    background: mix(@background-color-warning, @base-background-color, 15%);
+    color: @text-color-warning;
+  }
+  &.line-tab {
+    background: mix(@background-color-error, @base-background-color, 15%);
+    color: @text-color-error;
+  }
+
+}
 .warn-mixed-tabs-spaces {
 }

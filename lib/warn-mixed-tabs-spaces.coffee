@@ -17,6 +17,9 @@ module.exports = warnMixedTabsSpaces =
     activate: (state) ->
         @state = state
 
+        @markers = []
+        @line_markers = {}
+
         @warnMixedTabsSpacesView = new WarnMixedTabsSpacesView()
         @warnMixedTabsSpacesView.init()
 
@@ -39,14 +42,39 @@ module.exports = warnMixedTabsSpaces =
             editor_disposables.add editor.onDidDestroy ->
                 editor_disposables.dispose()
 
+
+    clearMarkers: () ->
+        for marker in @markers
+            marker.destroy()
+
+    addMarker: (editor, lineno, markerClass) ->
+        marker = editor.markBufferPosition([lineno, 0], invalidate: 'never')
+        editor.decorateMarker(marker, type: 'line-number', class: markerClass)
+        @markers.push(marker)
+
+    updateMarkers: (editor) ->
+        @clearMarkers()
+        if (@line_markers['space'])
+            for lineno in @line_markers['space']
+                @addMarker(editor, lineno, 'line-space')
+
+        if (@line_markers['tab'])
+            for lineno in @line_markers['tab']
+                @addMarker(editor, lineno, 'line-tab')
+
+
     update: () ->
         mixed = @checkMixedTabsAndSpaces()
+        editor = atom.workspace.getActiveTextEditor()
         if mixed
             @warnMixedTabsSpacesView.setText("MIXED TABS AND SPACES", true)
+            @updateMarkers(editor)
         else
             @warnMixedTabsSpacesView.setText("NO MIX", false)
+            @clearMarkers()
 
     checkMixedTabsAndSpaces: () ->
+        @line_markers = {}
         foundSpaces = false
         foundTabs = false
         lines = atom.workspace.getActiveTextEditor()?.getBuffer()?.getLines()
@@ -56,8 +84,14 @@ module.exports = warnMixedTabsSpaces =
                     c = line.charCodeAt(0)
                     if c == 0x20
                         foundSpaces = true
+                        if (!@line_markers['space'])
+                            @line_markers['space'] = []
+                        @line_markers['space'].push(lineno)
                     else if c == 0x09
                         foundTabs = true
+                        if (!@line_markers['tab'])
+                            @line_markers['tab'] = []
+                        @line_markers['tab'].push(lineno)
         foundSpaces and foundTabs
 
     deactivate: ->
